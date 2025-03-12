@@ -32,12 +32,10 @@ class LogSoftmax(Function):
         #   d log(e[i]/sum ) / d x[j]
         #       = sum / e[i] * (e[i]/sum) * (1 - e[i]/sum)
         #       = 1 - e[i] / sum
-
-        batches = self.log_softmax.shape[0]
-        results = []
-
-        for b in range(batches):
-            e = self.e[b : b + 1]
-            j = np.eye(e.shape[1]) - e / e.sum()
-            results.append(gradients[b] @ j)
-        return np.array(results)
+        batches, n = self.log_softmax.shape
+        eye = np.eye(n).reshape(1, n, n)
+        # (batches, n) -> (batches, 1, n)
+        e = np.expand_dims(self.e, axis=1)
+        # (batches, n, n) = (1, n, n) - (batches, 1, n) / (batches, 1, 1)
+        j = eye - e / e.sum(axis=2, keepdims=True)
+        return np.einsum("bj,bji->bi", gradients, j)
