@@ -1,0 +1,26 @@
+[project]
+name = "mininn"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Madiyar Aitbayev", email = "maitbayev@snapchat.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.2.3",
+    "torch>=2.6.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.9.10",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
