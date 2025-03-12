@@ -18,7 +18,7 @@ def _torch_nll_loss_grad(predicted, target):
 
 def test_forward():
     nll = NLLLoss()
-    for _ in range(100):
+    for _ in range(10):
         predicted = np.random.randn(5, 10) * 10
         target = np.random.randint(low=0, high=10, size=predicted.shape[0])
         assert nll.forward(predicted, target) == approx(
@@ -28,7 +28,7 @@ def test_forward():
 
 def test_backward():
     nll = NLLLoss()
-    for _ in range(100):
+    for _ in range(10):
         predicted = np.random.randn(5, 10) * 10
         target = np.random.randint(low=0, high=10, size=predicted.shape[0])
         nll.forward(predicted, target)

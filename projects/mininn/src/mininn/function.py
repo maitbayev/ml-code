@@ -8,5 +8,8 @@ class Function(ABC):
         pass
 
     @abstractmethod
-    def backward(self, *gradients: Any) -> Any:
+    def backward(self, *gradients: Any, **kwargs: Any) -> Any:
         pass
+
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        return self.forward(*args, **kwargs)

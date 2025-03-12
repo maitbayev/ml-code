@@ -17,10 +17,10 @@ class LogSoftmax(Function):
         #   = x[i] - mx - log(sum e^(x[j]-max))
 
         # (B, 1)
-        mx = np.max(input, axis=1, keepdims=True)
+        shifted = input - np.max(input, axis=1, keepdims=True)
         # (B, N)
-        self.e = np.exp(input - mx)
-        self.log_softmax = input - mx - np.log(np.sum(self.e, axis=1, keepdims=True))
+        self.e = np.exp(shifted)
+        self.log_softmax = shifted - np.log(np.sum(self.e, axis=1, keepdims=True))
         return self.log_softmax
 
     def backward(self, gradients: NDArray) -> NDArray:

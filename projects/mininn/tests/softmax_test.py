@@ -10,10 +10,10 @@ def _torch_softmax(input: np.ndarray) -> np.ndarray:
 
 
 def _torch_softmax_backward(input: np.ndarray, gradient: np.ndarray) -> np.ndarray:
-    input = torch.Tensor(input).requires_grad_(True)
-    output = torch.nn.functional.softmax(input, dim=1)
+    input_tensor = torch.tensor(input, requires_grad=True)
+    output = torch.nn.functional.softmax(input_tensor, dim=1)
     output.backward(torch.Tensor(gradient).requires_grad_(True))
-    return input.grad.numpy(force=True)
+    return input_tensor.grad.numpy(force=True)  # type: ignore
 
 
 def test_forward():
