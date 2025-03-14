@@ -4,9 +4,9 @@ from .log_softmax import LogSoftmax
 from .module import Module
 from .nll_loss import NLLLoss
 from .parameter import Parameter
+from .relu import Relu
 from .softmax import Softmax
 
-# isort: list
 __all__ = [
     "CrossEntropyLoss",
     "Linear",
@@ -14,5 +14,6 @@ __all__ = [
     "Module",
     "NLLLoss",
     "Parameter",
+    "Relu",
     "Softmax",
 ]
