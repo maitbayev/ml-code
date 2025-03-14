@@ -1,7 +1,8 @@
-from mininn import NLLLoss
 import numpy as np
 import torch
 from pytest import approx
+
+from mininn import NLLLoss
 
 
 def _torch_nll_loss(predicted, target):

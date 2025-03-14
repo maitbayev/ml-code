@@ -1,10 +1,10 @@
-from numpy.typing import NDArray
-from mininn.function import Function
-
 import numpy as np
+from numpy.typing import NDArray
+
+from mininn.module import Module
 
 
-class LogSoftmax(Function):
+class LogSoftmax(Module):
     def __init__(self):
         self.e = np.array([])
         self.log_softmax = np.array([])

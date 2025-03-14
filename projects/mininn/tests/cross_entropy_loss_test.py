@@ -1,7 +1,8 @@
-from mininn import CrossEntropyLoss
 import numpy as np
 import torch
 from pytest import approx
+
+from mininn import CrossEntropyLoss
 
 
 def _torch_cross_entropy(predicted, target):

@@ -1,10 +1,11 @@
-import mininn
-from mininn.log_softmax import LogSoftmax
-from mininn.nll_loss import NLLLoss
 import numpy as np
 
+from mininn.log_softmax import LogSoftmax
+from mininn.module import Module
+from mininn.nll_loss import NLLLoss
 
-class CrossEntropyLoss(mininn.Function):
+
+class CrossEntropyLoss(Module):
     def __init__(self):
         super().__init__()
         self.log_softmax = LogSoftmax()

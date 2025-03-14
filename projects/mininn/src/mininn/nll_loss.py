@@ -1,8 +1,9 @@
 import numpy as np
-from mininn.function import Function
+
+from mininn.module import Module
 
 
-class NLLLoss(Function):
+class NLLLoss(Module):
     def __init__(self):
         super().__init__()
         self.target = np.array([])

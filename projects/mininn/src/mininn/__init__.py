@@ -1,19 +1,18 @@
-from .function import Function
 from .cross_entropy_loss import CrossEntropyLoss
-from .softmax import Softmax
-from .log_softmax import LogSoftmax
-from .nll_loss import NLLLoss
-from .module import Module
 from .linear import Linear
+from .log_softmax import LogSoftmax
+from .module import Module
+from .nll_loss import NLLLoss
 from .parameter import Parameter
+from .softmax import Softmax
 
+# isort: list
 __all__ = [
-    "Function",
     "CrossEntropyLoss",
-    "Softmax",
-    "LogSoftmax",
-    "NLLLoss",
-    "Module",
     "Linear",
+    "LogSoftmax",
+    "Module",
+    "NLLLoss",
     "Parameter",
+    "Softmax",
 ]

@@ -1,6 +1,7 @@
+import numpy as np
+
 from mininn.module import Module
 from mininn.parameter import Parameter
-import numpy as np
 
 
 class Linear(Module):

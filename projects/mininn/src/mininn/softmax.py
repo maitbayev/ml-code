@@ -1,10 +1,10 @@
-from numpy.typing import NDArray
-from mininn.function import Function
-
 import numpy as np
+from numpy.typing import NDArray
+
+from mininn.module import Module
 
 
-class Softmax(Function):
+class Softmax(Module):
     def __init__(self):
         self.softmax = np.array([])
 

@@ -23,6 +23,12 @@ dev = [
     "ruff>=0.9.10",
 ]
 
+[tool.ruff.lint]
+extend-select = [
+    "I",
+    "RUF",
+]
+
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
