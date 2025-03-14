@@ -16,7 +16,7 @@ class Linear(Module):
         # input (B, N) x (N, M) + (1, B)
         out = input @ self.weight.value
         if self.bias is not None:
-            out += self.bias.value.reshape((1, -1))
+            out += self.bias.value
         self.input = input
         return out
 
@@ -24,4 +24,4 @@ class Linear(Module):
         self.weight.grad = np.dot(self.input.T, gradients)
         if self.bias:
             self.bias.grad = gradients.sum(axis=0)
-        return np.ndarray([])
+        return gradients @ self.weight.value.T
