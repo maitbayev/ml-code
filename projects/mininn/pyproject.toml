@@ -25,3 +25,4 @@ dev = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+

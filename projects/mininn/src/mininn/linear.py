@@ -6,6 +6,7 @@ import numpy as np
 class Linear(Module):
     def __init__(self, in_features: int, out_features: int, bias: bool = True):
         super().__init__()
+        self.input = np.array([])
         self.in_features = in_features
         self.out_features = out_features
         lim = 1 / np.sqrt(in_features)
@@ -13,15 +14,16 @@ class Linear(Module):
         self.bias = Parameter.uniform(out_features, lim) if bias else None
 
     def forward(self, input: np.ndarray) -> np.ndarray:
-        # input (B, N) x (N, M) + (1, B)
+        # (batches, in_features, out_features) -> (B, N, M)
+        # (B, N) x (N, M) + (B,)
+        self.input = input
         out = input @ self.weight.value
         if self.bias is not None:
             out += self.bias.value
-        self.input = input
         return out
 
     def backward(self, gradients: np.ndarray) -> np.ndarray:
-        self.weight.grad = np.dot(self.input.T, gradients)
+        self.weight.accumulate_grad(np.dot(self.input.T, gradients))
         if self.bias:
-            self.bias.grad = gradients.sum(axis=0)
+            self.bias.accumulate_grad(gradients.sum(axis=0))
         return gradients @ self.weight.value.T
