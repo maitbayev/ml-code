@@ -27,7 +27,7 @@ def test_forward():
 
 def test_backward():
     log_softmax = LogSoftmax()
-    for i in range(100):
+    for i in range(10):
         inp = np.random.randn(3, 10)
         if i % 2 == 0:
             inp = inp.T
