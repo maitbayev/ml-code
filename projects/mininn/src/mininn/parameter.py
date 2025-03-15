@@ -12,8 +12,16 @@ class Parameter:
     def uniform(cls, shape: tuple | int, range: float) -> "Parameter":
         return Parameter(np.random.uniform(low=-range, high=range, size=shape))
 
-    def accumulate_grad(self, grad: np.ndarray):
+    def set(self, value: np.ndarray) -> "Parameter":
+        self.value = value
+        return self
+
+    def add(self, delta: np.ndarray, alpha: float = 1) -> "Parameter":
+        self.value += alpha * delta
+        return self
+
+    def accumulate_grad(self, delta: np.ndarray):
         if self.grad is None:
-            self.grad = grad
+            self.grad = delta.copy()
         else:
-            self.grad += grad
+            self.grad += delta

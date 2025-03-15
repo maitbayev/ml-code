@@ -12,4 +12,4 @@ class ReLU(Module):
         return np.maximum(0, input)
 
     def backward(self, gradients: np.ndarray) -> np.ndarray:
-        return (self.input > 0).astype(gradients.dtype) * gradients
+        return (self.input >= 0).astype(gradients.dtype) * gradients
