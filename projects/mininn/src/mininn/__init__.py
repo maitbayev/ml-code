@@ -4,7 +4,7 @@ from .log_softmax import LogSoftmax
 from .module import Module
 from .nll_loss import NLLLoss
 from .parameter import Parameter
-from .relu import Relu
+from .relu import ReLU
 from .sequential import Sequential
 from .softmax import Softmax
 
@@ -15,7 +15,7 @@ __all__ = [
     "Module",
     "NLLLoss",
     "Parameter",
-    "Relu",
+    "ReLU",
     "Sequential",
     "Softmax",
 ]

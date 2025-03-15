@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from pytest import approx
 
-from mininn import Relu
+from mininn import ReLU
 
 
 def _torch_relu(input: np.ndarray) -> np.ndarray:
@@ -20,7 +20,7 @@ def _torch_relu_grad(input: np.ndarray, grad: np.ndarray) -> np.ndarray:
 
 
 def test_forward():
-    relu = Relu()
+    relu = ReLU()
     for i in range(10):
         input = np.random.randn(3, 5) * 10
         if i % 2 == 0:
@@ -29,7 +29,7 @@ def test_forward():
 
 
 def test_backward():
-    relu = Relu()
+    relu = ReLU()
     for i in range(10):
         input = np.random.randn(3, 5) * 10
         if i % 2 == 0:

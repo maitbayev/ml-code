@@ -39,7 +39,7 @@ def _make_sequence(w1: np.ndarray, b1: np.ndarray) -> mininn.Sequential:
     return mininn.Sequential(
         [
             linear,
-            mininn.Relu(),
+            mininn.ReLU(),
             mininn.Softmax(),
         ]
     )

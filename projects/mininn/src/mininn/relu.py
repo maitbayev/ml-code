@@ -3,7 +3,7 @@ import numpy as np
 from mininn.module import Module
 
 
-class Relu(Module):
+class ReLU(Module):
     def __init__(self):
         super().__init__()
 
