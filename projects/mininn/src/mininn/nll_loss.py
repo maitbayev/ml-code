@@ -18,7 +18,7 @@ class NLLLoss(Module):
         self.input_shape = input.shape
         return sum / batches
 
-    def backward(self) -> np.ndarray:
+    def backward(self, gradients=1) -> np.ndarray:
         batches = self.input_shape[0]
         output = np.zeros(self.input_shape)
         output[np.arange(batches), self.target] = -1.0 / batches
