@@ -86,7 +86,7 @@ def check_optimizer(
 
 def test_sgd():
     torch.set_default_dtype(torch.float64)
-    for iter in range(1):
+    for _ in range(10):
         w1 = np.random.randn(3, 5)
         b1 = np.random.randn(5)
         w2 = np.random.randn(5, 7)
@@ -94,4 +94,17 @@ def test_sgd():
         model = _make_model(w1, b1, w2)
         torch_sgd = torch.optim.SGD(torch_model.parameters(), lr=0.1)
         sgd = mininn.SGD(model.parameters(), lr=0.1)
+        check_optimizer(model, sgd, torch_model, torch_sgd)
+
+
+def test_sgd_momentum():
+    torch.set_default_dtype(torch.float64)
+    for _ in range(10):
+        w1 = np.random.randn(3, 5)
+        b1 = np.random.randn(5)
+        w2 = np.random.randn(5, 7)
+        torch_model = _make_torch_model(w1, b1, w2)
+        model = _make_model(w1, b1, w2)
+        torch_sgd = torch.optim.SGD(torch_model.parameters(), lr=0.1, momentum=0.9)
+        sgd = mininn.SGD(model.parameters(), lr=0.1, momentum=0.9)
         check_optimizer(model, sgd, torch_model, torch_sgd)
