@@ -73,3 +73,10 @@ def test_backward_input():
         assert linear.backward(grad) == approx(expected.input)
         assert linear.weight.grad == approx(expected.weight)
         assert linear.bias.grad == approx(expected.bias)  # type: ignore
+
+
+def test_parameters():
+    l1 = Linear(in_features=3, out_features=5)
+    assert list(l1.parameters()) == [l1.weight, l1.bias]
+    l2 = Linear(in_features=3, out_features=5, bias=False)
+    assert list(l2.parameters()) == [l2.weight]

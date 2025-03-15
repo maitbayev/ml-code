@@ -1,3 +1,5 @@
+from typing import Iterable
+
 import numpy as np
 
 from mininn.module import Module
@@ -28,3 +30,8 @@ class Linear(Module):
         if self.bias:
             self.bias.accumulate_grad(gradients.sum(axis=0))
         return gradients @ self.weight.value.T
+
+    def parameters(self, recurse: bool = True) -> Iterable[Parameter]:
+        yield self.weight
+        if self.bias:
+            yield self.bias

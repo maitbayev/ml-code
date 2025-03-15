@@ -1,6 +1,9 @@
+from typing import Iterable
+
 import numpy as np
 
 from mininn.module import Module
+from mininn.parameter import Parameter
 
 
 class Sequential(Module):
@@ -19,3 +22,9 @@ class Sequential(Module):
         for module in reversed(self.modules):
             output = module.backward(output)
         return output
+
+    def parameters(self, recurse: bool = True) -> Iterable[Parameter]:
+        if recurse:
+            for module in self.modules:
+                for param in module.parameters():
+                    yield param

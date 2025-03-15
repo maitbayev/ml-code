@@ -66,3 +66,24 @@ def test_backward():
         torch_grad = _torch_backward(torch_seq, x, grad)
         seq.forward(x)
         assert seq.backward(grad) == approx(torch_grad)
+
+
+def test_parameters():
+    s0 = mininn.Sequential(
+        [
+            mininn.ReLU(),
+        ]
+    )
+    assert list(s0.parameters()) == []
+    l1 = mininn.Linear(in_features=5, out_features=5)
+    l2 = mininn.Linear(in_features=5, out_features=8, bias=False)
+    s1 = mininn.Sequential(
+        [
+            l1,
+            mininn.ReLU(),
+            mininn.Softmax(),
+        ]
+    )
+    assert list(s1.parameters()) == [l1.weight, l1.bias]
+    s2 = mininn.Sequential([l1, l2])
+    assert list(s2.parameters()) == [l1.weight, l1.bias, l2.weight]
