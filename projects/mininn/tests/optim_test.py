@@ -82,7 +82,6 @@ def check_optimizer(
                 w = t.numpy(force=True)
                 if "weight" in t_name:
                     w = w.T
-                print(w)
                 assert p.value == approx(w), t_name
 
 
@@ -122,4 +121,17 @@ def test_rmsprop():
         model = _make_model(w1, b1, w2)
         torch_sgd = torch.optim.RMSprop(torch_model.parameters(), lr=0.1)
         sgd = mininn.optim.RMSprop(model.parameters(), lr=0.1)
+        check_optimizer(model, sgd, torch_model, torch_sgd)
+
+
+def test_adam():
+    torch.set_default_dtype(torch.float64)
+    for _ in range(10):
+        w1 = np.random.randn(3, 5)
+        b1 = np.random.randn(5)
+        w2 = np.random.randn(5, 7)
+        torch_model = _make_torch_model(w1, b1, w2)
+        model = _make_model(w1, b1, w2)
+        torch_sgd = torch.optim.Adam(torch_model.parameters(), lr=0.1)
+        sgd = mininn.optim.Adam(model.parameters(), lr=0.1)
         check_optimizer(model, sgd, torch_model, torch_sgd)
