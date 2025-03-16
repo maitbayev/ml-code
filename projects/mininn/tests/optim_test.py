@@ -3,6 +3,7 @@ import torch
 from pytest import approx
 
 import mininn
+import mininn.optim
 
 
 def _make_torch_model(
@@ -52,7 +53,7 @@ def _make_model(w1: np.ndarray, b1: np.ndarray, w2: np.ndarray) -> mininn.Sequen
 
 def check_optimizer(
     model: mininn.Sequential,
-    optimizer: mininn.Optimizer,
+    optimizer: mininn.optim.Optimizer,
     torch_model: torch.nn.Sequential,
     torch_optimizer: torch.optim.Optimizer,
 ):
@@ -81,6 +82,7 @@ def check_optimizer(
                 w = t.numpy(force=True)
                 if "weight" in t_name:
                     w = w.T
+                print(w)
                 assert p.value == approx(w), t_name
 
 
@@ -93,7 +95,7 @@ def test_sgd():
         torch_model = _make_torch_model(w1, b1, w2)
         model = _make_model(w1, b1, w2)
         torch_sgd = torch.optim.SGD(torch_model.parameters(), lr=0.1)
-        sgd = mininn.SGD(model.parameters(), lr=0.1)
+        sgd = mininn.optim.SGD(model.parameters(), lr=0.1)
         check_optimizer(model, sgd, torch_model, torch_sgd)
 
 
@@ -106,5 +108,18 @@ def test_sgd_momentum():
         torch_model = _make_torch_model(w1, b1, w2)
         model = _make_model(w1, b1, w2)
         torch_sgd = torch.optim.SGD(torch_model.parameters(), lr=0.1, momentum=0.9)
-        sgd = mininn.SGD(model.parameters(), lr=0.1, momentum=0.9)
+        sgd = mininn.optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
+        check_optimizer(model, sgd, torch_model, torch_sgd)
+
+
+def test_rmsprop():
+    torch.set_default_dtype(torch.float64)
+    for _ in range(10):
+        w1 = np.random.randn(3, 5)
+        b1 = np.random.randn(5)
+        w2 = np.random.randn(5, 7)
+        torch_model = _make_torch_model(w1, b1, w2)
+        model = _make_model(w1, b1, w2)
+        torch_sgd = torch.optim.RMSprop(torch_model.parameters(), lr=0.1)
+        sgd = mininn.optim.RMSprop(model.parameters(), lr=0.1)
         check_optimizer(model, sgd, torch_model, torch_sgd)
