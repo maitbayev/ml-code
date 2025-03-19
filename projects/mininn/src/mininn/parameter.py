@@ -22,6 +22,6 @@ class Parameter:
 
     def accumulate_grad(self, delta: np.ndarray):
         if self.grad is None:
-            self.grad = delta.copy()
+            self.grad = delta
         else:
             self.grad += delta

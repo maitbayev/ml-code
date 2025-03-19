@@ -17,8 +17,7 @@ class Linear(Module):
         self.bias = Parameter.uniform(out_features, lim) if bias else None
 
     def forward(self, input: np.ndarray) -> np.ndarray:
-        # (batches, in_features, out_features) -> (B, N, M)
-        # (B, N) x (N, M) + (B,)
+         # (B, N) x (N, M) + (B,)
         self.input = input
         out = input @ self.weight.value
         if self.bias is not None:
@@ -26,7 +25,7 @@ class Linear(Module):
         return out
 
     def backward(self, gradients: np.ndarray) -> np.ndarray:
-        self.weight.accumulate_grad(np.dot(self.input.T, gradients))
+        self.weight.accumulate_grad(self.input.T @ gradients)
         if self.bias:
             self.bias.accumulate_grad(gradients.sum(axis=0))
         return gradients @ self.weight.value.T
