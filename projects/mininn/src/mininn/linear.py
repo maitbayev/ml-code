@@ -17,7 +17,7 @@ class Linear(Module):
         self.bias = Parameter.uniform(out_features, lim) if bias else None
 
     def forward(self, input: np.ndarray) -> np.ndarray:
-         # (B, N) x (N, M) + (B,)
+        # (B, N) x (N, M) + (B,)
         self.input = input
         out = input @ self.weight.value
         if self.bias is not None:
