@@ -33,7 +33,7 @@ class Conv2d(Module):
         k = self.kernel_size
         if self.padding == "same":
             p = (k // 2, k // 2)
-            input = np.pad(input, [(0, 0), (0, 0), p, p], constant_values=0)
+            input = np.pad(input, [(0, 0), (0, 0), p, p])
         batches, _, h, w = input.shape
         output = np.zeros([batches, self.out_channels, h - k + 1, w - k + 1])
         for i in range(h - k + 1):
