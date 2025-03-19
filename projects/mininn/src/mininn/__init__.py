@@ -1,5 +1,6 @@
 from mininn import optim
 
+from .conv2d import Conv2d
 from .cross_entropy_loss import CrossEntropyLoss
 from .linear import Linear
 from .log_softmax import LogSoftmax
@@ -12,6 +13,7 @@ from .sequential import Sequential
 from .softmax import Softmax
 
 __all__ = [
+    "Conv2d",
     "CrossEntropyLoss",
     "Linear",
     "LogSoftmax",
