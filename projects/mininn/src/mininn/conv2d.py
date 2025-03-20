@@ -53,10 +53,10 @@ class Conv2d(Module):
     def backward(self, gradients: np.ndarray) -> np.ndarray:
         k = self.kernel_size
         batches, _, h, w = self.padded_input.shape
-        grad_out = np.zeros_like(self.padded_input)
+        grad_input = np.zeros_like(self.padded_input)
         for i in range(h - k + 1):
             for j in range(w - k + 1):
-                grad_out[:, :, i : i + k, j : j + k] += np.einsum(
+                grad_input[:, :, i : i + k, j : j + k] += np.einsum(
                     "dcij,bd->bcij", self.weight.value, gradients[:, :, i, j]
                 )
                 self.weight.accumulate_grad(
@@ -70,8 +70,8 @@ class Conv2d(Module):
             self.bias.accumulate_grad(gradients.sum(axis=(0, 2, 3)))
         if self.padding == "same":
             p = k // 2
-            grad_out = grad_out[:, :, p:-p, p:-p]
-        return grad_out
+            grad_input = grad_input[:, :, p:-p, p:-p]
+        return grad_input
 
     def parameters(self, recurse: bool = True) -> Iterable[Parameter]:
         yield self.weight
