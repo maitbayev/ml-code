@@ -38,4 +38,9 @@ class LogSoftmax(Module):
         e = np.expand_dims(self.e, axis=1)
         # (batches, n, n) = (1, n, n) - (batches, 1, n) / (batches, 1, 1)
         j = eye - e / e.sum(axis=2, keepdims=True)
-        return np.einsum("bj,bji->bi", gradients, j)
+
+        # einsum: bj,bji->bi
+        # (batches, n) -> (batches, 1, n)
+        gradients = np.expand_dims(gradients, axis=1)
+        # (batches, 1, n) @ (batches, n, n) -> (batches, n)
+        return np.squeeze(gradients @ j, axis=1)
