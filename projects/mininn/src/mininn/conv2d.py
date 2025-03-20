@@ -66,8 +66,8 @@ class Conv2d(Module):
                         gradients[:, :, i, j],
                     )
                 )
-                if self.bias:
-                    self.bias.accumulate_grad(gradients[:, :, i, j].sum(axis=0))
+        if self.bias:
+            self.bias.accumulate_grad(gradients.sum(axis=(0, 2, 3)))
         if self.padding == "same":
             p = k // 2
             grad_out = grad_out[:, :, p:-p, p:-p]
