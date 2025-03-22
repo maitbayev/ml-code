@@ -25,9 +25,8 @@ class MaxPool2D(Module):
         output = np.zeros([batches, c, h_out, w_out])
         for i in range(0, h - k + 1, self.stride):
             for j in range(0, w - k + 1, self.stride):
-                output[:, :, i // self.stride, j // self.stride] = input[
-                    :, :, i : i + k, j : j + k
-                ].max(axis=(2, 3))
+                window = input[:, :, i : i + k, j : j + k].max(axis=(2, 3))
+                output[:, :, i // self.stride, j // self.stride] = window
         return output
 
     def backward(self, gradients: np.ndarray) -> np.ndarray:
