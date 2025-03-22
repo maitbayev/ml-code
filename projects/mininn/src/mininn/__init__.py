@@ -5,6 +5,7 @@ from .cross_entropy_loss import CrossEntropyLoss
 from .flatten import Flatten
 from .linear import Linear
 from .log_softmax import LogSoftmax
+from .max_pool2d import MaxPool2D
 from .module import Module
 from .mse_loss import MSELoss
 from .nll_loss import NLLLoss
@@ -20,6 +21,7 @@ __all__ = [
     "Linear",
     "LogSoftmax",
     "MSELoss",
+    "MaxPool2D",
     "Module",
     "NLLLoss",
     "Parameter",
