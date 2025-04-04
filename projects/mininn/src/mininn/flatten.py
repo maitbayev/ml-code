@@ -27,5 +27,4 @@ def _flattened_shape(
 ) -> tuple[int, ...]:
     start = start_dim
     stop = len(shape) if end_dim == -1 else end_dim + 1
-    print(shape[:start] + (math.prod(shape[start:stop]),) + shape[stop:])
     return shape[:start] + (math.prod(shape[start:stop]),) + shape[stop:]
