@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Self
 
 import numpy as np
 
@@ -28,3 +28,9 @@ class Sequential(Module):
             for module in self.modules:
                 for param in module.parameters():
                     yield param
+
+    def set_training(self, value: bool = True) -> Self:
+        super().set_training(value)
+        for module in self.modules:
+            module.set_training(value)
+        return self
