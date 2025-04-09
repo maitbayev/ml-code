@@ -24,7 +24,6 @@ model = mininn.Sequential([
     mininn.ReLU(),
     mininn.Linear(200, 20)
 ])
-
 loss = mininn.CrossEntropyLoss()
 optimizer = mininn.optim.Adam(model.parameters(), lr=0.001)
 
