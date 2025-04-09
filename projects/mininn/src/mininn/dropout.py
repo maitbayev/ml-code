@@ -13,7 +13,7 @@ class Dropout(Module):
     def forward(self, input: np.ndarray) -> np.ndarray:
         if self.is_training():
             self.input = input
-            self.mask = np.random.rand(*input.shape) >= self.p
+            self.mask = np.random.binomial(1, 1 - self.p, size=self.input.shape)
             return self.mask * input * 1.0 / (1.0 - self.p)
         else:
             return input
